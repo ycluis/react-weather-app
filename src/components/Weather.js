@@ -4,12 +4,14 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { temperatureFormat, timeFormat } from '../utils/dataFormat'
 
 const Weather = ({ geo, weather }) => {
-  const isMobileView = useMediaQuery('(max-width: 894px)')
+  const isMiddleView = useMediaQuery('(max-width: 894px)')
   const isSmallView = useMediaQuery('(max-width: 480px)')
+
+  const isWeatherReady = Object.keys(weather).length !== 0 && Object.keys(geo).length !== 0
 
   return (
     <>
-      {Object.keys(weather).length !== 0 && Object.keys(geo).length !== 0 && (
+      {isWeatherReady && (
         <Box sx={{ width: '100%' }}>
           <Typography variant="subtitle1">Today's Weather</Typography>
 
@@ -17,11 +19,12 @@ const Weather = ({ geo, weather }) => {
             variant={isSmallView ? 'h4' : 'h1'}
             display={'flex'}
             alignItems={'center'}
-            justifyContent={isMobileView ? 'space-between' : 'center'}
+            justifyContent={isMiddleView ? 'space-between' : 'center'}
           >
             {temperatureFormat(weather.main.temp)}{' '}
             <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="icon" />
           </Typography>
+
           <Typography variant="subtitle1" display="inline-block" marginRight={'5px'}>
             H: {temperatureFormat(weather.main.temp_max)}
           </Typography>
@@ -29,7 +32,7 @@ const Weather = ({ geo, weather }) => {
             L: {temperatureFormat(weather.main.temp_min)}
           </Typography>
 
-          {isMobileView ? (
+          {isMiddleView ? (
             <Box display="flex" justifyContent={'space-between'} flexDirection={'column'}>
               <Box>
                 <Typography variant={isSmallView ? 'subtitle1' : 'h6'} gutterBottom marginRight={'5px'}>

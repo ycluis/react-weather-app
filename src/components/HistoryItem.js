@@ -8,8 +8,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { timeFormat } from '../utils/dataFormat'
 
 const HistoryItem = ({ history, onGetWeatherData, onItemDelete }) => {
-  const isMobileView = useMediaQuery('(max-width: 894px)')
-  // const isSmallView = useMediaQuery('(max-width: 480px)')
+  const isMiddleView = useMediaQuery('(max-width: 894px)')
 
   return (
     <li>
@@ -22,8 +21,8 @@ const HistoryItem = ({ history, onGetWeatherData, onItemDelete }) => {
           borderRadius: '15px',
         }}
       >
-        {isMobileView ? (
-          <Box display={'flex'} justifyContent={'space-between'} alignItems={'center'}>
+        {isMiddleView ? (
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
             <Box>
               <Typography variant="subtitle1" gutterBottom>
                 {history.city}, {history.country}
@@ -61,7 +60,7 @@ const HistoryItem = ({ history, onGetWeatherData, onItemDelete }) => {
             </Box>
           </Box>
         ) : (
-          <Box style={{ display: 'flex', justifyContent: 'space-between' }}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Typography variant="h6" display="inline-block" gutterBottom>
               {history.city}, {history.country}
             </Typography>

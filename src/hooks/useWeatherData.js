@@ -10,26 +10,38 @@ const useWeatherData = () => {
   const [error, setError] = useState(false)
   const [errorMessage, setErrorMessage] = useState('')
 
+  const validateInput = (data) => {
+    const regex = /[0-9!@#$%^&*()_+=[\]{};':"\\|,.<>/?]/
+    return regex.test(data)
+  }
+
   const getWeatherData = async (city) => {
-    try {
-      setIsLoading(true)
-      const [locationGeo] = await openWeatherService.getLocationGeo(city)
-      const weatherData = await openWeatherService.getWeatherData(locationGeo.lat, locationGeo.lon)
+    setIsLoading(true)
 
-      setGeo(locationGeo)
-      setWeather(weatherData)
-
-      // append to history
-      addToHistory(locationGeo, weatherData)
-
-      setError(false)
-      setErrorMessage('')
-      setIsLoading(false)
-    } catch (err) {
+    if (validateInput(city)) {
       setError(true)
       setErrorMessage(`Invalid input`)
-      console.log(err)
       setIsLoading(false)
+    } else {
+      try {
+        const [locationGeo] = await openWeatherService.getLocationGeo(city)
+        const weatherData = await openWeatherService.getWeatherData(locationGeo.lat, locationGeo.lon)
+
+        setGeo(locationGeo)
+        setWeather(weatherData)
+
+        // append to history
+        addToHistory(locationGeo, weatherData)
+
+        setError(false)
+        setErrorMessage('')
+        setIsLoading(false)
+      } catch (err) {
+        setError(true)
+        setErrorMessage(`Invalid input`)
+        console.log(err)
+        setIsLoading(false)
+      }
     }
   }
 
@@ -49,7 +61,17 @@ const useWeatherData = () => {
     setErrorMessage('')
   }
 
-  return { isLoading, geo, weather, history, error, errorMessage, getWeatherData, removeFromHistory, removeAlert }
+  return {
+    isLoading,
+    geo,
+    weather,
+    history,
+    error,
+    errorMessage,
+    getWeatherData,
+    removeFromHistory,
+    removeAlert,
+  }
 }
 
 export default useWeatherData

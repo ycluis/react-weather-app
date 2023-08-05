@@ -1,10 +1,12 @@
-const HistoryItem = ({ item, handleItemDelete, getWeatherData }) => {
+import { timeFormat } from '../utils/dataFormat'
+
+const HistoryItem = ({ history, onGetWeatherData, onItemDelete }) => {
   return (
     <li>
       <div>
-        {item.city},{item.country} ---- {item.time}
-        <button onClick={() => getWeatherData(item.city)}>Search</button>
-        <button onClick={() => handleItemDelete(item.id)}>Delete</button>
+        {history.city},{history.country} ---- {timeFormat(history.time)}
+        <button onClick={() => onGetWeatherData(history.city)}>Search</button>
+        <button onClick={() => onItemDelete(history.id)}>Delete</button>
       </div>
     </li>
   )

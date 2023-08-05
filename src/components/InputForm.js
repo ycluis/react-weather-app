@@ -1,7 +1,7 @@
-const InputForm = ({ getWeatherData }) => {
+const InputForm = ({ onGetWeatherData }) => {
   const getWeather = (e) => {
     e.preventDefault()
-    getWeatherData(e.target.city.value)
+    onGetWeatherData(e.target.city.value)
     e.target.city.value = ''
   }
 

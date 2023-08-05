@@ -16,7 +16,7 @@ const Weather = ({ geo, weather }) => {
           </p>
           <p>{weather.main.humidity}%</p>
           <p>
-            {new Date(1691201759 * 1000)
+            {new Date(weather.dt * 1000)
               .toLocaleString([], {
                 year: 'numeric',
                 month: 'numeric',

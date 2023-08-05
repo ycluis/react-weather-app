@@ -47,6 +47,7 @@ const InputForm = ({ onGetWeatherData }) => {
         <Button
           startIcon={<SearchOutlinedIcon />}
           onClick={getWeather}
+          size="large"
           sx={{
             px: 2,
             backgroundColor: 'rgba(40, 18, 77, 1)',

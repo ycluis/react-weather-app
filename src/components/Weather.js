@@ -1,23 +1,42 @@
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 import { temperatureFormat, timeFormat } from '../utils/dataFormat'
 
 const Weather = ({ geo, weather }) => {
   return (
     <>
       {Object.keys(weather).length !== 0 && Object.keys(geo).length !== 0 && (
-        <>
-          <h2>WeatherData</h2>
-          <h3>
-            {geo.name}, {geo.country}
-          </h3>
-          <h3>{weather.weather[0].main}</h3>
-          <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="icon" />
-          <p>{weather.weather[0].description}</p>
-          <p>
-            {temperatureFormat(weather.main.temp_min)} ~ {temperatureFormat(weather.main.temp_max)}
-          </p>
-          <p>{weather.main.humidity}%</p>
-          <p>{timeFormat(weather.dt)}</p>
-        </>
+        <Box sx={{ width: '100%' }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography variant="subtitle1" display="block" gutterBottom>
+              Today's Weather
+            </Typography>
+          </div>
+          <Typography variant="h1" gutterBottom display={'flex'} alignItems={'center'}>
+            {temperatureFormat(weather.main.temp)}{' '}
+            <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="icon" />
+          </Typography>
+          <Typography variant="h6" display="inline-block" gutterBottom marginRight={'5px'}>
+            H: {temperatureFormat(weather.main.temp_max)}
+          </Typography>
+          <Typography variant="h6" display="inline-block" gutterBottom>
+            L: {temperatureFormat(weather.main.temp_min)}
+          </Typography>
+          <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Typography variant="h6" gutterBottom marginRight={'5px'}>
+              {geo.name}, {geo.country}
+            </Typography>
+            <Typography variant="h6" gutterBottom marginRight={'5px'}>
+              {timeFormat(weather.dt)}
+            </Typography>
+            <Typography variant="h6" gutterBottom marginRight={'5px'}>
+              Humidity: {weather.main.humidity}%
+            </Typography>
+            <Typography variant="h6" gutterBottom marginRight={'5px'}>
+              {weather.weather[0].main}
+            </Typography>
+          </div>
+        </Box>
       )}
     </>
   )

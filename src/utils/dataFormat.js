@@ -1,5 +1,5 @@
 export const temperatureFormat = (temperature) => {
-  return `${(temperature - 273.15).toFixed(2)}\u00B0C`
+  return `${(temperature - 273.15).toFixed(2)}\u00B0`
 }
 
 export const timeFormat = (time) => {

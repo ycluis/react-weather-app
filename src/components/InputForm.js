@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { TextField, Button, Paper } from '@mui/material'
+import { TextField, Paper } from '@mui/material'
 import Box from '@mui/material/Box'
+import IconButton from '@mui/material/IconButton'
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined'
 
 const InputForm = ({ onGetWeatherData }) => {
@@ -18,13 +19,13 @@ const InputForm = ({ onGetWeatherData }) => {
       <Box display={'flex'}>
         <Paper
           elevation={3}
+          // marginRight={isMobileView ? '10px' : '1rem'}
           sx={{
             flexGrow: 1,
             backgroundColor: 'rgba(40, 18, 77, 1)',
             display: 'flex',
             alignItems: 'center',
             borderRadius: '20px',
-            marginRight: '1rem',
           }}
         >
           <TextField
@@ -44,10 +45,11 @@ const InputForm = ({ onGetWeatherData }) => {
           />
         </Paper>
 
-        <Button
-          startIcon={<SearchOutlinedIcon />}
+        <IconButton
+          aria-label="search"
           onClick={getWeather}
-          size="large"
+          style={{ margin: '0 1rem' }}
+          size="small"
           sx={{
             px: 2,
             backgroundColor: 'rgba(40, 18, 77, 1)',
@@ -55,8 +57,8 @@ const InputForm = ({ onGetWeatherData }) => {
             borderRadius: '20px',
           }}
         >
-          Search
-        </Button>
+          <SearchOutlinedIcon />
+        </IconButton>
       </Box>
     </>
   )

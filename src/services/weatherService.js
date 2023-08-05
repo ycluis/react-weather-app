@@ -8,10 +8,10 @@ const getLocationGeo = async (city) => {
   return req.data
 }
 
-const getWeather = async (lat, lon) => {
+const getWeatherData = async (lat, lon) => {
   const req = await axios.get(`${openWeatherUrl}?lat=${lat}&lon=${lon}&appid=${process.env.REACT_APP_API_KEY}`)
   return req.data
 }
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getLocationGeo, getWeather }
+export default { getLocationGeo, getWeatherData }

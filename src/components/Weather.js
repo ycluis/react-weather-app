@@ -1,3 +1,5 @@
+import { temperatureFormat, timeFormat } from '../utils/dataFormat'
+
 const Weather = ({ geo, weather }) => {
   return (
     <>
@@ -11,23 +13,10 @@ const Weather = ({ geo, weather }) => {
           <img src={`https://openweathermap.org/img/wn/${weather.weather[0].icon}@2x.png`} alt="icon" />
           <p>{weather.weather[0].description}</p>
           <p>
-            {`${(weather.main.temp_min - 273.15).toFixed(2)}\u00B0C`} ~{' '}
-            {`${(weather.main.temp_max - 273.15).toFixed(2)}\u00B0C`}
+            {temperatureFormat(weather.main.temp_min)} ~ {temperatureFormat(weather.main.temp_max)}
           </p>
           <p>{weather.main.humidity}%</p>
-          <p>
-            {new Date(weather.dt * 1000)
-              .toLocaleString([], {
-                year: 'numeric',
-                month: 'numeric',
-                day: 'numeric',
-                hour: 'numeric',
-                minute: 'numeric',
-                hour12: true,
-              })
-              .replaceAll('/', '-')
-              .replaceAll(',', '')}
-          </p>
+          <p>{timeFormat(weather.dt)}</p>
         </>
       )}
     </>
@@ -35,9 +24,3 @@ const Weather = ({ geo, weather }) => {
 }
 
 export default Weather
-
-// weather[0].main
-// weather[0].description
-// main.tempmin & main.tempmax
-// main.huminity
-// dt

@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import InputForm from './components/InputForm'
 import Weather from './components/Weather'
 import History from './components/History'
@@ -20,14 +19,31 @@ const darkTheme = createTheme({
 })
 
 function App() {
-  const { isLoading, geo, weather, history, error, errorMessage, getWeatherData, removeFromHistory, removeAlert } =
-    useWeatherData()
+  const {
+    isLoading,
+    geo,
+    weather,
+    history,
+    error,
+    errorMessage,
+    getWeatherData,
+    removeFromHistory,
+    clearAllHistory,
+    removeAlert,
+  } = useWeatherData()
   const isMiddleView = useMediaQuery('(max-width: 894px)')
 
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
-      <Container sx={{ width: '100%', maxWidth: 'none', display: 'flex', flexDirection: 'column' }}>
+      <Container
+        sx={{
+          width: '100%',
+          maxWidth: 'none',
+          display: 'flex',
+          flexDirection: 'column',
+        }}
+      >
         {error && (
           <Box p={2} flex={1} marginTop={isMiddleView ? 0 : '0.5rem'} width={'100%'}>
             <Alert severity="error" onClose={removeAlert}>
@@ -41,7 +57,12 @@ function App() {
         {(Object.keys(weather).length !== 0 || history.length > 0) && (
           <Box
             p={isMiddleView ? 2 : 4}
-            sx={{ marginTop: '1rem', backgroundColor: 'rgba(40, 18, 77, 0.5)', flex: 1, borderRadius: '20px' }}
+            sx={{
+              marginTop: '1rem',
+              backgroundColor: 'rgba(40, 18, 77, 0.5)',
+              flex: 1,
+              borderRadius: '20px',
+            }}
           >
             {isLoading ? (
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -50,7 +71,12 @@ function App() {
             ) : (
               <>
                 <Weather geo={geo} weather={weather} />
-                <History history={history} onGetWeatherData={getWeatherData} onItemDelete={removeFromHistory} />
+                <History
+                  history={history}
+                  onGetWeatherData={getWeatherData}
+                  onItemDelete={removeFromHistory}
+                  onClearAllHistory={clearAllHistory}
+                />
               </>
             )}
           </Box>

@@ -12,6 +12,13 @@ const InputForm = ({ onGetWeatherData }) => {
     }
   }
 
+  const handleEnterSubmit = (e) => {
+    if (e.key === 'Enter') {
+      onGetWeatherData(city)
+      setCity('')
+    }
+  }
+
   return (
     <Box display={'flex'}>
       <Paper
@@ -21,20 +28,20 @@ const InputForm = ({ onGetWeatherData }) => {
           backgroundColor: 'rgba(40, 18, 77, 1)',
           display: 'flex',
           alignItems: 'center',
-          borderRadius: '20px',
         }}
       >
         <TextField
           label="City"
-          variant="outlined"
+          variant="filled"
           type="text"
           name="city"
           value={city}
           fullWidth
+          onKeyDown={handleEnterSubmit}
           InputProps={{
             sx: {
+              backgroundColor: 'rgba(40, 18, 77, 1)',
               color: '#ffffff',
-              borderRadius: '20px',
             },
           }}
           onChange={(e) => setCity(e.target.value)}

@@ -1,8 +1,9 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
+import Button from '@mui/material/Button'
 import HistoryItem from './HistoryItem'
 
-const History = ({ history, onGetWeatherData, onItemDelete }) => {
+const History = ({ history, onGetWeatherData, onItemDelete, onClearAllHistory }) => {
   // create a shallow copy of the original history array and then reverse it to display history item in desc order
   const reverseHistoryArr = history.slice(0).reverse()
 
@@ -16,9 +17,16 @@ const History = ({ history, onGetWeatherData, onItemDelete }) => {
         borderRadius: '15px',
       }}
     >
-      <Typography variant="h6" display="inline-block" gutterBottom>
-        Search History
-      </Typography>
+      <Box display="flex" justifyContent={'space-between'} alignItems={'center'}>
+        <Typography variant="h6" display="inline-block" gutterBottom>
+          Search History
+        </Typography>
+        {history.length > 0 && (
+          <Button variant="outlined" color="error" style={{ marginLeft: '1rem' }} onClick={onClearAllHistory}>
+            CLEAR ALL
+          </Button>
+        )}
+      </Box>
       {history.length === 0 ? (
         <Typography variant="overline" display="block" gutterBottom>
           No previous weather history available.

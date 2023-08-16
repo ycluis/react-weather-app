@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { nanoid } from 'nanoid'
-import openWeatherService from '../services/weatherService'
+import { getLocationGeo, getOpenWeatherData } from '../services/weatherService'
 
 const useWeatherData = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -21,11 +21,10 @@ const useWeatherData = () => {
     if (validateInput(city)) {
       setError(true)
       setErrorMessage(`Invalid input`)
-      setIsLoading(false)
     } else {
       try {
-        const [locationGeo] = await openWeatherService.getLocationGeo(city)
-        const weatherData = await openWeatherService.getWeatherData(locationGeo.lat, locationGeo.lon)
+        const [locationGeo] = await getLocationGeo(city)
+        const weatherData = await getOpenWeatherData(locationGeo.lat, locationGeo.lon)
 
         setGeo(locationGeo)
         setWeather(weatherData)
@@ -35,14 +34,14 @@ const useWeatherData = () => {
 
         setError(false)
         setErrorMessage('')
-        setIsLoading(false)
       } catch (err) {
         setError(true)
         setErrorMessage(`Invalid input`)
         console.log(err)
-        setIsLoading(false)
       }
     }
+
+    setIsLoading(false)
   }
 
   const addToHistory = (locationGeo, weatherData) => {
@@ -54,6 +53,10 @@ const useWeatherData = () => {
 
   const removeFromHistory = (id) => {
     setHistory((prevHistory) => prevHistory.filter((item) => item.id !== id))
+  }
+
+  const clearAllHistory = () => {
+    setHistory([])
   }
 
   const removeAlert = () => {
@@ -70,6 +73,7 @@ const useWeatherData = () => {
     errorMessage,
     getWeatherData,
     removeFromHistory,
+    clearAllHistory,
     removeAlert,
   }
 }
